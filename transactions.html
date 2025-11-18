@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alpha Bank - Transações</title>
+  <link rel="stylesheet" href="src/css/style.css">
+</head>
+<body style="padding-bottom: 80px;">
+  
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <button class="icon-btn" onclick="window.location.href='dashboard.html'">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <h1 style="font-size: 20px; font-weight: bold;">Todas as Transações</h1>
+      <button class="icon-btn" onclick="openFilterModal()">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container" style="padding-top: 24px; padding-bottom: 24px;">
+    
+    <!-- Resumo -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 24px;">
+      <div class="card" style="text-align: center;">
+        <p style="font-size: 12px; color: var(--foreground-muted); margin-bottom: 8px;">Receitas</p>
+        <p id="totalIncome" style="font-size: 20px; font-weight: bold; color: var(--success);">R$ 0,00</p>
+      </div>
+      <div class="card" style="text-align: center;">
+        <p style="font-size: 12px; color: var(--foreground-muted); margin-bottom: 8px;">Despesas</p>
+        <p id="totalExpense" style="font-size: 20px; font-weight: bold; color: var(--error);">R$ 0,00</p>
+      </div>
+      <div class="card" style="text-align: center;">
+        <p style="font-size: 12px; color: var(--foreground-muted); margin-bottom: 8px;">Saldo</p>
+        <p id="totalBalance" style="font-size: 20px; font-weight: bold; color: var(--primary);">R$ 0,00</p>
+      </div>
+    </div>
+
+    <!-- Lista de Transações -->
+    <div id="allTransactionsList">
+      <!-- Transações serão carregadas via JavaScript -->
+    </div>
+
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-content">
+      <button class="nav-item" onclick="window.location.href='dashboard.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+        <span>Início</span>
+      </button>
+      <button class="nav-item active" onclick="window.location.href='transactions.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+        </svg>
+        <span>Transações</span>
+      </button>
+      <div class="nav-item-fab">
+        <button class="fab" onclick="openAddTransactionModal()">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+        </button>
+      </div>
+      <button class="nav-item" onclick="window.location.href='stats.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+        </svg>
+        <span>Estatísticas</span>
+      </button>
+      <button class="nav-item" onclick="window.location.href='settings.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <span>Configurações</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Modal de Adicionar Transação -->
+  <div id="addTransactionModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Nova Transação</h2>
+        <button class="modal-close" onclick="closeModal('addTransactionModal')">
+          <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <form id="addTransactionForm">
+        <div class="input-group">
+          <label>Tipo</label>
+          <select id="transactionType" required>
+            <option value="income">Receita</option>
+            <option value="expense">Despesa</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>Descrição</label>
+          <input type="text" id="transactionDescription" placeholder="Ex: Salário, Mercado..." required>
+        </div>
+        <div class="input-group">
+          <label>Valor (R$)</label>
+          <input type="number" id="transactionAmount" placeholder="0,00" step="0.01" min="0" required>
+        </div>
+        <div class="input-group">
+          <label>Categoria</label>
+          <select id="transactionCategory">
+            <option value="">Selecione uma categoria</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">
+          Adicionar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal de Filtro -->
+  <div id="filterModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Filtrar Transações</h2>
+        <button class="modal-close" onclick="closeModal('filterModal')">
+          <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <form id="filterForm">
+        <div class="input-group">
+          <label>Tipo</label>
+          <select id="filterType">
+            <option value="">Todos</option>
+            <option value="income">Receitas</option>
+            <option value="expense">Despesas</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>Categoria</label>
+          <input type="text" id="filterCategory" placeholder="Ex: Alimentação">
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <button type="button" class="btn btn-secondary" style="flex: 1;" onclick="clearFilters()">
+            Limpar
+          </button>
+          <button type="submit" class="btn btn-primary" style="flex: 1;">
+            Aplicar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal de Editar Transação -->
+  <div id="editTransactionModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Editar Transação</h2>
+        <button class="modal-close" onclick="closeModal('editTransactionModal')">
+          <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <form id="editTransactionForm">
+        <input type="hidden" id="editTransactionId">
+        <div class="input-group">
+          <label>Tipo</label>
+          <select id="editTransactionType" required>
+            <option value="income">Receita</option>
+            <option value="expense">Despesa</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>Descrição</label>
+          <input type="text" id="editTransactionDescription" required>
+        </div>
+        <div class="input-group">
+          <label>Valor (R$)</label>
+          <input type="number" id="editTransactionAmount" step="0.01" min="0" required>
+        </div>
+        <div class="input-group">
+          <label>Categoria</label>
+          <select id="editTransactionCategory">
+            <option value="">Selecione uma categoria</option>
+          </select>
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <button type="button" class="btn btn-danger" style="flex: 1;" onclick="deleteTransaction()">
+            Excluir
+          </button>
+          <button type="submit" class="btn btn-primary" style="flex: 1;">
+            Salvar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="src/js/utils.js"></script>
+  <script src="src/js/api.js"></script>
+  <script src="src/js/transactions.js"></script>
+</body>
+</html>
+

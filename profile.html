@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alpha Bank - Meu Perfil</title>
+  <link rel="stylesheet" href="src/css/style.css">
+</head>
+<body style="padding-bottom: 80px;">
+  
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <button class="icon-btn" onclick="window.location.href='settings.html'">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <h1 style="font-size: 20px; font-weight: bold;">Meu Perfil</h1>
+      <div style="width: 40px;"></div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container" style="padding-top: 24px; padding-bottom: 24px;">
+    
+    <!-- Avatar e Informações Básicas -->
+    <div class="card" style="text-align: center; margin-bottom: 24px;">
+      <div style="width: 120px; height: 120px; margin: 0 auto 20px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; font-size: 48px; font-weight: bold; color: var(--background); box-shadow: var(--shadow-glow);">
+        <span id="profileInitials">U</span>
+      </div>
+      <h2 id="profileName" style="font-size: 24px; font-weight: bold; margin-bottom: 8px;">Usuário</h2>
+      <p id="profileEmail" style="color: var(--foreground-muted); margin-bottom: 4px;">usuario@email.com</p>
+      <p id="profileMemberSince" style="font-size: 12px; color: var(--foreground-muted);">Membro desde: --/--/----</p>
+    </div>
+
+    <!-- Formulário de Edição -->
+    <div class="card" style="margin-bottom: 24px;">
+      <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 20px;">Informações Pessoais</h3>
+      
+      <form id="profileForm">
+        <div class="input-group">
+          <label>Nome Completo</label>
+          <input type="text" id="editFullName" placeholder="Seu nome completo" required>
+        </div>
+
+        <div class="input-group">
+          <label>CPF</label>
+          <input type="text" id="editCPF" placeholder="000.000.000-00" maxlength="14" disabled style="opacity: 0.6; cursor: not-allowed;">
+          <p style="font-size: 12px; color: var(--foreground-muted); margin-top: 4px;">⚠️ CPF não pode ser alterado</p>
+        </div>
+
+        <div class="input-group">
+          <label>Data de Nascimento</label>
+          <input type="date" id="editBirthDate" required>
+        </div>
+
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" id="editEmail" placeholder="seu@email.com" required>
+        </div>
+
+        <div class="input-group">
+          <label>Celular</label>
+          <input type="tel" id="editPhone" placeholder="(00) 00000-0000" maxlength="15" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%;">
+          Salvar Alterações
+        </button>
+      </form>
+    </div>
+
+    <!-- Estatísticas do Usuário -->
+    <div class="card" style="margin-bottom: 24px;">
+      <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 20px;">Minhas Estatísticas</h3>
+      
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+        <div style="padding: 16px; background: var(--background-secondary); border-radius: 12px; text-align: center;">
+          <p style="font-size: 12px; color: var(--foreground-muted); margin-bottom: 8px;">Transações</p>
+          <p id="totalTransactions" style="font-size: 28px; font-weight: bold; color: var(--primary);">0</p>
+        </div>
+        
+        <div style="padding: 16px; background: var(--background-secondary); border-radius: 12px; text-align: center;">
+          <p style="font-size: 12px; color: var(--foreground-muted); margin-bottom: 8px;">Categorias</p>
+          <p id="totalCategories" style="font-size: 28px; font-weight: bold; color: var(--accent);">0</p>
+        </div>
+        
+        <div style="padding: 16px; background: var(--background-secondary); border-radius: 12px; text-align: center;">
+          <p style="font-size: 12px; color: var(--foreground-muted); margin-bottom: 8px;">Metas</p>
+          <p id="totalGoals" style="font-size: 28px; font-weight: bold; color: var(--success);">0</p>
+        </div>
+        
+        <div style="padding: 16px; background: var(--background-secondary); border-radius: 12px; text-align: center;">
+          <p style="font-size: 12px; color: var(--foreground-muted); margin-bottom: 8px;">Recorrências</p>
+          <p id="totalRecurring" style="font-size: 28px; font-weight: bold; color: var(--error);">0</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conquistas -->
+    <div class="card">
+      <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 20px;">🏆 Conquistas</h3>
+      
+      <div id="achievementsList">
+        <!-- Conquistas serão carregadas via JavaScript -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-content">
+      <button class="nav-item" onclick="window.location.href='dashboard.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+        <span>Início</span>
+      </button>
+      <button class="nav-item" onclick="window.location.href='transactions.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+        </svg>
+        <span>Transações</span>
+      </button>
+      <div class="nav-item-fab">
+        <button class="fab" onclick="window.location.href='dashboard.html'">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+        </button>
+      </div>
+      <button class="nav-item" onclick="window.location.href='stats.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+        </svg>
+        <span>Estatísticas</span>
+      </button>
+      <button class="nav-item active" onclick="window.location.href='settings.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <span>Configurações</span>
+      </button>
+    </div>
+  </nav>
+
+  <script src="src/js/utils.js"></script>
+  <script src="src/js/api.js"></script>
+  <script src="src/js/profile.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alpha Bank - Login</title>
+  <link rel="stylesheet" href="src/css/style.css">
+</head>
+<body>
+  <!-- Efeito de partículas -->
+  <div class="particles-bg" id="particles"></div>
+
+  <!-- Container principal -->
+  <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1;">
+    <div style="width: 100%; max-width: 450px; padding: 20px;">
+      
+      <!-- Logo e título -->
+      <div style="text-align: center; margin-bottom: 40px;">
+        <img src="src/assets/45-135.webp" alt="Alpha Bank" style="width: 120px; height: 120px; margin-bottom: 16px; border-radius: 20px; box-shadow: var(--shadow-glow);">
+        <h1 style="font-size: 32px; font-weight: bold; margin-bottom: 8px;">Alpha Bank</h1>
+        <p style="color: var(--foreground-muted); font-size: 16px;">Your Financial Compass</p>
+      </div>
+
+      <!-- Card de login -->
+      <div class="card">
+        <h2 style="font-size: 24px; font-weight: bold; text-align: center; margin-bottom: 32px;">
+          ACESSAR SUA CONTA
+        </h2>
+
+        <form id="loginForm">
+          <div class="input-group">
+            <label for="username">Usuário ou Email</label>
+            <input type="text" id="username" placeholder="Digite seu usuário ou email" required>
+          </div>
+
+          <div class="input-group">
+            <label for="password">Senha</label>
+            <input type="password" id="password" placeholder="Digite sua senha" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">
+            ENTRAR
+          </button>
+        </form>
+
+        <div style="text-align: center; margin-top: 24px;">
+          <button id="resetPasswordBtn" style="background: none; border: none; color: var(--primary); font-size: 14px; font-weight: 500; cursor: pointer; transition: var(--transition);">
+            Esqueceu a senha?
+          </button>
+        </div>
+
+        <div style="text-align: center; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border);">
+          <p style="color: var(--foreground-muted); font-size: 14px; margin-bottom: 12px;">
+            Ainda não tem uma conta?
+          </p>
+          <button onclick="window.location.href='register.html'" class="btn btn-secondary" style="width: 100%;">
+            ABRA SUA CONTA
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal de reset de senha -->
+  <div id="resetModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Resetar Senha</h2>
+        <button class="modal-close" id="closeResetModal">
+          <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <form id="resetForm">
+        <div class="input-group">
+          <label for="resetEmail">Email</label>
+          <input type="email" id="resetEmail" placeholder="Digite seu email" required>
+        </div>
+
+        <button type="submit" class="btn btn-danger" style="width: 100%;">
+          ENVIAR LINK DE RECUPERAÇÃO
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="src/js/utils.js"></script>
+  <script src="src/js/api.js"></script>
+  <script src="src/js/login.js"></script>
+</body>
+</html>
+

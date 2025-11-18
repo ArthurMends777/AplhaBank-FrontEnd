@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alpha Bank - Configurações</title>
+  <link rel="stylesheet" href="src/css/style.css">
+</head>
+<body style="padding-bottom: 80px;">
+  
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <button class="icon-btn" onclick="window.location.href='dashboard.html'">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <h1 style="font-size: 20px; font-weight: bold;">Configurações</h1>
+      <div style="width: 40px;"></div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container" style="padding-top: 24px; padding-bottom: 24px;">
+    
+    <!-- Perfil do Usuário -->
+    <div class="card" style="margin-bottom: 24px;">
+      <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+        <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; color: var(--background);">
+          <span id="userInitials">U</span>
+        </div>
+        <div style="flex: 1;">
+          <h3 id="userName" style="font-size: 20px; font-weight: bold; margin-bottom: 4px;">Usuário</h3>
+          <p id="userEmail" style="color: var(--foreground-muted); font-size: 14px;">usuario@email.com</p>
+        </div>
+      </div>
+      <button onclick="window.location.href='profile.html'" class="btn btn-secondary" style="width: 100%;">
+        Editar Perfil
+      </button>
+    </div>
+
+    <!-- Opções de Configuração -->
+    <div class="card" style="margin-bottom: 16px;">
+      <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; color: var(--foreground-muted);">GERAL</h3>
+      
+      <button onclick="window.location.href='goals.html'" style="width: 100%; padding: 16px; background: transparent; border: none; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: var(--transition); color: var(--foreground);" 
+              onmouseover="this.style.background='var(--background-secondary)'" 
+              onmouseout="this.style.background='transparent'">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 20px;">🎯</span>
+          <span style="font-weight: 500;">Metas Financeiras</span>
+        </div>
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+
+      <button onclick="window.location.href='recurring.html'" style="width: 100%; padding: 16px; background: transparent; border: none; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: var(--transition); color: var(--foreground);" 
+              onmouseover="this.style.background='var(--background-secondary)'" 
+              onmouseout="this.style.background='transparent'">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 20px;">🔄</span>
+          <span style="font-weight: 500;">Despesas Recorrentes</span>
+        </div>
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+
+      <button onclick="window.location.href='simulator.html'" style="width: 100%; padding: 16px; background: transparent; border: none; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: var(--transition); color: var(--foreground);" 
+              onmouseover="this.style.background='var(--background-secondary)'" 
+              onmouseout="this.style.background='transparent'">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 20px;">💡</span>
+          <span style="font-weight: 500;">Simulador de Orçamento</span>
+        </div>
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+
+      <button onclick="window.location.href='categories.html'" style="width: 100%; padding: 16px; background: transparent; border: none; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: var(--transition); color: var(--foreground);" 
+              onmouseover="this.style.background='var(--background-secondary)'" 
+              onmouseout="this.style.background='transparent'">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 20px;">🏷️</span>
+          <span style="font-weight: 500;">Gerenciar Categorias</span>
+        </div>
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+
+      <button onclick="window.location.href='notifications.html'" style="width: 100%; padding: 16px; background: transparent; border: none; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: var(--transition); color: var(--foreground);" 
+              onmouseover="this.style.background='var(--background-secondary)'" 
+              onmouseout="this.style.background='transparent'">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 20px;">🔔</span>
+          <span style="font-weight: 500;">Notificações</span>
+        </div>
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+
+      <button onclick="exportData()" style="width: 100%; padding: 16px; background: transparent; border: none; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: var(--transition); color: var(--foreground);" 
+              onmouseover="this.style.background='var(--background-secondary)'" 
+              onmouseout="this.style.background='transparent'">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 20px;">📥</span>
+          <span style="font-weight: 500;">Exportar Dados</span>
+        </div>
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="card" style="margin-bottom: 16px;">
+      <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; color: var(--foreground-muted);">SEGURANÇA</h3>
+      
+      <button onclick="openChangePasswordModal()" style="width: 100%; padding: 16px; background: transparent; border: none; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: var(--transition); color: var(--foreground);" 
+              onmouseover="this.style.background='var(--background-secondary)'" 
+              onmouseout="this.style.background='transparent'">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 20px;">🔒</span>
+          <span style="font-weight: 500;">Alterar Senha</span>
+        </div>
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+
+      <button onclick="clearData()" style="width: 100%; padding: 16px; background: transparent; border: none; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: var(--transition); color: var(--foreground);" 
+              onmouseover="this.style.background='var(--background-secondary)'" 
+              onmouseout="this.style.background='transparent'">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 20px;">🗑️</span>
+          <span style="font-weight: 500;">Limpar Dados Locais</span>
+        </div>
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="card" style="margin-bottom: 24px;">
+      <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; color: var(--foreground-muted);">SOBRE</h3>
+      
+      <div style="padding: 16px 0; border-bottom: 1px solid var(--border);">
+        <p style="color: var(--foreground-muted); font-size: 14px; margin-bottom: 4px;">Versão</p>
+        <p style="font-weight: 500;">1.0.0</p>
+      </div>
+
+      <div style="padding: 16px 0;">
+        <p style="color: var(--foreground-muted); font-size: 14px; margin-bottom: 4px;">Desenvolvido por</p>
+        <p style="font-weight: 500;">Alpha Bank Team</p>
+      </div>
+    </div>
+
+    <!-- Botão de Logout -->
+    <button onclick="confirmLogout()" class="btn btn-danger" style="width: 100%;">
+      SAIR DA CONTA
+    </button>
+
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-content">
+      <button class="nav-item" onclick="window.location.href='dashboard.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+        <span>Início</span>
+      </button>
+      <button class="nav-item" onclick="window.location.href='transactions.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+        </svg>
+        <span>Transações</span>
+      </button>
+      <div class="nav-item-fab">
+        <button class="fab" onclick="window.location.href='dashboard.html'">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+        </button>
+      </div>
+      <button class="nav-item" onclick="window.location.href='stats.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+        </svg>
+        <span>Estatísticas</span>
+      </button>
+      <button class="nav-item active" onclick="window.location.href='settings.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <span>Configurações</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Modal de Alterar Senha -->
+  <div id="changePasswordModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Alterar Senha</h2>
+        <button class="modal-close" onclick="closeModal('changePasswordModal')">
+          <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <form id="changePasswordForm">
+        <div class="input-group">
+          <label>Senha Atual</label>
+          <input type="password" id="currentPassword" required>
+        </div>
+        <div class="input-group">
+          <label>Nova Senha</label>
+          <input type="password" id="newPassword" minlength="6" required>
+        </div>
+        <div class="input-group">
+          <label>Confirmar Nova Senha</label>
+          <input type="password" id="confirmNewPassword" minlength="6" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">
+          Alterar Senha
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="src/js/utils.js"></script>
+  <script src="src/js/api.js"></script>
+  <script src="src/js/settings.js"></script>
+</body>
+</html>
+

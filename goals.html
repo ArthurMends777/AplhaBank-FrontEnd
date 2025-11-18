@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alpha Bank - Metas Financeiras</title>
+  <link rel="stylesheet" href="src/css/style.css">
+</head>
+<body style="padding-bottom: 80px;">
+  
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <button class="icon-btn" onclick="window.location.href='dashboard.html'">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <h1 style="font-size: 20px; font-weight: bold;">Metas Financeiras</h1>
+      <button class="icon-btn" onclick="openAddGoalModal()">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container" style="padding-top: 24px; padding-bottom: 24px;">
+    
+    <p style="color: var(--foreground-muted); margin-bottom: 24px; text-align: center;">
+      🎯 Defina suas metas e acompanhe seu progresso
+    </p>
+
+    <!-- Lista de Metas -->
+    <div id="goalsList">
+      <!-- Metas serão carregadas via JavaScript -->
+    </div>
+
+    <!-- Mensagem quando não há metas -->
+    <div id="emptyState" class="hidden" style="text-align: center; padding: 60px 20px;">
+      <div style="font-size: 64px; margin-bottom: 16px;">🎯</div>
+      <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 8px;">Nenhuma meta criada</h3>
+      <p style="color: var(--foreground-muted); margin-bottom: 24px;">Comece definindo sua primeira meta financeira!</p>
+      <button onclick="openAddGoalModal()" class="btn btn-primary">
+        Criar Primeira Meta
+      </button>
+    </div>
+
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-content">
+      <button class="nav-item" onclick="window.location.href='dashboard.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+        <span>Início</span>
+      </button>
+      <button class="nav-item" onclick="window.location.href='transactions.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+        </svg>
+        <span>Transações</span>
+      </button>
+      <div class="nav-item-fab">
+        <button class="fab" onclick="window.location.href='dashboard.html'">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+        </button>
+      </div>
+      <button class="nav-item" onclick="window.location.href='stats.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+        </svg>
+        <span>Estatísticas</span>
+      </button>
+      <button class="nav-item" onclick="window.location.href='settings.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <span>Configurações</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Modal de Adicionar/Editar Meta -->
+  <div id="goalModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="goalModalTitle">Nova Meta</h2>
+        <button class="modal-close" onclick="closeModal('goalModal')">
+          <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <form id="goalForm">
+        <input type="hidden" id="goalId">
+        <div class="input-group">
+          <label>Nome da Meta</label>
+          <input type="text" id="goalName" placeholder="Ex: Viagem para a praia" required>
+        </div>
+        <div class="input-group">
+          <label>Valor Alvo (R$)</label>
+          <input type="number" id="goalTarget" placeholder="0,00" step="0.01" min="0" required>
+        </div>
+        <div class="input-group">
+          <label>Data Limite</label>
+          <input type="date" id="goalDeadline" required>
+        </div>
+        <div class="input-group">
+          <label>Ícone (Emoji)</label>
+          <input type="text" id="goalIcon" placeholder="🎯" maxlength="2" value="🎯">
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <button type="button" id="deleteGoalBtn" class="btn btn-danger hidden" style="flex: 1;" onclick="deleteGoal()">
+            Excluir
+          </button>
+          <button type="submit" class="btn btn-primary" style="flex: 1;">
+            Salvar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal de Adicionar Progresso -->
+  <div id="progressModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Adicionar Progresso</h2>
+        <button class="modal-close" onclick="closeModal('progressModal')">
+          <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <form id="progressForm">
+        <input type="hidden" id="progressGoalId">
+        <div class="input-group">
+          <label>Valor a Adicionar (R$)</label>
+          <input type="number" id="progressAmount" placeholder="0,00" step="0.01" min="0" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">
+          Adicionar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="src/js/utils.js"></script>
+  <script src="src/js/api.js"></script>
+  <script src="src/js/goals.js"></script>
+</body>
+</html>
+

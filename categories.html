@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alpha Bank - Categorias</title>
+  <link rel="stylesheet" href="src/css/style.css">
+</head>
+<body style="padding-bottom: 80px;">
+  
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <button class="icon-btn" onclick="window.location.href='settings.html'">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <h1 style="font-size: 20px; font-weight: bold;">Gerenciar Categorias</h1>
+      <button class="icon-btn" onclick="openAddCategoryModal()">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container" style="padding-top: 24px; padding-bottom: 24px;">
+    
+    <p style="color: var(--foreground-muted); margin-bottom: 24px; text-align: center;">
+      Organize suas transações criando categorias personalizadas
+    </p>
+
+    <!-- Categorias de Despesas -->
+    <div style="margin-bottom: 32px;">
+      <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: var(--error);">
+        📉 Despesas
+      </h3>
+      <div id="expenseCategories" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px;">
+        <!-- Categorias serão carregadas via JavaScript -->
+      </div>
+    </div>
+
+    <!-- Categorias de Receitas -->
+    <div style="margin-bottom: 32px;">
+      <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: var(--success);">
+        📈 Receitas
+      </h3>
+      <div id="incomeCategories" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px;">
+        <!-- Categorias serão carregadas via JavaScript -->
+      </div>
+    </div>
+
+    <!-- Categorias Gerais -->
+    <div>
+      <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 16px;">
+        💼 Gerais
+      </h3>
+      <div id="bothCategories" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px;">
+        <!-- Categorias serão carregadas via JavaScript -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-content">
+      <button class="nav-item" onclick="window.location.href='dashboard.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+        <span>Início</span>
+      </button>
+      <button class="nav-item" onclick="window.location.href='transactions.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+        </svg>
+        <span>Transações</span>
+      </button>
+      <div class="nav-item-fab">
+        <button class="fab" onclick="window.location.href='dashboard.html'">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+        </button>
+      </div>
+      <button class="nav-item" onclick="window.location.href='stats.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+        </svg>
+        <span>Estatísticas</span>
+      </button>
+      <button class="nav-item active" onclick="window.location.href='settings.html'">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <span>Configurações</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Modal de Adicionar/Editar Categoria -->
+  <div id="categoryModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="categoryModalTitle">Nova Categoria</h2>
+        <button class="modal-close" onclick="closeModal('categoryModal')">
+          <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <form id="categoryForm">
+        <input type="hidden" id="categoryId">
+        <div class="input-group">
+          <label>Nome da Categoria</label>
+          <input type="text" id="categoryName" placeholder="Ex: Alimentação" required>
+        </div>
+        <div class="input-group">
+          <label>Ícone (Emoji)</label>
+          <input type="text" id="categoryIcon" placeholder="🍔" maxlength="2" required>
+        </div>
+        <div class="input-group">
+          <label>Cor</label>
+          <input type="color" id="categoryColor" value="#00d9ff" required>
+        </div>
+        <div class="input-group">
+          <label>Tipo</label>
+          <select id="categoryType" required>
+            <option value="expense">Despesa</option>
+            <option value="income">Receita</option>
+            <option value="both">Ambos</option>
+          </select>
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <button type="button" id="deleteCategoryBtn" class="btn btn-danger hidden" style="flex: 1;" onclick="deleteCategory()">
+            Excluir
+          </button>
+          <button type="submit" class="btn btn-primary" style="flex: 1;">
+            Salvar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="src/js/utils.js"></script>
+  <script src="src/js/api.js"></script>
+  <script src="src/js/categories.js"></script>
+</body>
+</html>
+
