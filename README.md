@@ -4,7 +4,7 @@ Este é o frontend do Alpha Bank, totalmente integrado com a API desenvolvida em
 
 ## 🔗 Backend em Rust
 
-[![Backend](https://img.shields.io/badge/GitHub-Backend%20Rust-black?logo=github)](https://github.com/seu-usuario/alpha-bank-backend-mysql)
+[![Backend](https://img.shields.io/badge/GitHub-Backend%20Rust-black?logo=github)](https://github.com/ArthurMends777/AlphaBank-API.git)
 
 
 ## 🏗️ Estrutura do Projeto
