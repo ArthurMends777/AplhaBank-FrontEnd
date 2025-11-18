@@ -2,6 +2,11 @@
 
 Este é o frontend do Alpha Bank, totalmente integrado com a API desenvolvida em Rust.
 
+## 🔗 Backend em Rust
+
+[![Backend](https://img.shields.io/badge/GitHub-Backend%20Rust-black?logo=github)](https://github.com/seu-usuario/alpha-bank-backend-mysql)
+
+
 ## 🏗️ Estrutura do Projeto
 
 O projeto segue uma estrutura clara, separando as páginas HTML, estilos CSS e a lógica JavaScript:
