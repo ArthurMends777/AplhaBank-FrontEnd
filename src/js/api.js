@@ -96,6 +96,7 @@ const authAPI = {
         const response = await fetch(`${API_BASE_URL}/me`, {
             headers: getHeaders()
         });
+        // console.log('Response getProfile:', response);
         return handleResponse(response);
     },
 

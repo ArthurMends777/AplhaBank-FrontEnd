@@ -135,6 +135,7 @@ function debounce(func, wait) {
 
 // Inicializa partículas quando a página carregar
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('Initializing particles...');
   createParticles();
 });
 

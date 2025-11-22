@@ -9,23 +9,36 @@ function validateEmail(email) {
  */
 
 // Verifica autenticação
-if (!checkAuth()) {
-  window.location.href = 'index.html';
-}
+// if (!checkAuth()) {
+//   window.location.href = 'index.html';
+// }
 
 let userData = {};
 
 // Carrega dados do perfil
 async function loadProfile() {
   try {
-    userData = JSON.parse(localStorage.getItem('userData') || '{}');
+    // Tenta carregar do localStorage, mas prioriza a API para dados atualizados
+    const localData = JSON.parse(localStorage.getItem('userData') || '{}');
+    
+    // 1. Tenta buscar dados atualizados da API
+    try {
+      const apiData = await authAPI.getProfile();
+      // console.log('Dados do perfil carregados da API:', apiData);
+      userData = { ...localData, ...apiData };
+      localStorage.setItem('userData', JSON.stringify(userData)); // Atualiza o localStorage com dados da API
+    } catch (apiError) {
+      console.warn('Falha ao buscar perfil na API, usando dados locais:', apiError);
+      userData = localData;
+    }
     
     // Atualiza informações básicas
-    if (userData.fullName) {
-      document.getElementById('profileName').textContent = userData.fullName;
-      const initials = userData.fullName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+    // console.log('User Data teste:', userData);
+    if (userData.full_name) {
+      document.getElementById('profileName').textContent = userData.full_name;
+      const initials = userData.full_name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
       document.getElementById('profileInitials').textContent = initials;
-      document.getElementById('editFullName').value = userData.fullName;
+      document.getElementById('editFullName').value = userData.full_name;
     }
     
     if (userData.email) {
@@ -37,16 +50,16 @@ async function loadProfile() {
       document.getElementById('editCPF').value = userData.cpf;
     }
     
-    if (userData.birthDate) {
-      document.getElementById('editBirthDate').value = userData.birthDate;
+    if (userData.birth_date) {
+      document.getElementById('editBirthDate').value = userData.birth_date;
     }
     
     if (userData.phone) {
       document.getElementById('editPhone').value = userData.phone;
     }
     
-    if (userData.createdAt) {
-      const date = new Date(userData.createdAt);
+    if (userData.created_at) {
+      const date = new Date(userData.created_at);
       document.getElementById('profileMemberSince').textContent = 
         `Membro desde: ${date.toLocaleDateString('pt-BR')}`;
     }
@@ -248,14 +261,19 @@ document.getElementById('profileForm').addEventListener('submit', async (e) => {
   submitBtn.innerHTML = '<span class="loading"></span> Salvando...';
   
   try {
-    // Atualiza dados do usuário
-    userData.fullName = fullName;
-    userData.birthDate = birthDate;
-    userData.email = email;
-    userData.phone = phone;
-    userData.updatedAt = new Date().toISOString();
+    // 1. Prepara os dados para envio à API
+    const updateData = {
+      full_name: fullName,
+      birth_date: birthDate,
+      email: email,
+      phone: phone
+    };
     
-    localStorage.setItem('userData', JSON.stringify(userData));
+    // 2. Envia a atualização para a API
+    const updatedUser = await authAPI.updateProfile(updateData);
+    
+    // 3. Atualiza o localStorage com os dados retornados pela API
+    localStorage.setItem('userData', JSON.stringify(updatedUser));
     
     // Atualiza também na lista de usuários se existir
     const users = JSON.parse(localStorage.getItem('users') || '[]');

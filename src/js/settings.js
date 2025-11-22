@@ -10,10 +10,10 @@ if (!checkAuth()) {
 // Carrega dados do usuário
 function loadUserData() {
   const userData = JSON.parse(localStorage.getItem('userData') || '{}');
-  
-  if (userData.fullName) {
-    document.getElementById('userName').textContent = userData.fullName;
-    const initials = userData.fullName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+  console.log('User Data:', userData);
+  if (userData.full_name) {
+    document.getElementById('userName').textContent = userData.full_name;
+    const initials = userData.full_name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
     document.getElementById('userInitials').textContent = initials;
   }
   
