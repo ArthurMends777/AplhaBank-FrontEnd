@@ -228,7 +228,8 @@ const categoriesAPI = {
             body: JSON.stringify({
                 name: categoryData.name,
                 icon: categoryData.icon,
-                color: categoryData.color
+                color: categoryData.color,
+                category_type: categoryData.type || categoryData.category_type
             })
         });
         return handleResponse(response);

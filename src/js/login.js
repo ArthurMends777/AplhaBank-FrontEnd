@@ -21,7 +21,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
       window.location.href = 'welcome.html';
     }, 500);
   } catch (error) {
-    showToast(error.message || 'Erro ao fazer login', 'erro');
+    alert(error.message || 'Email ou senha incorretos', 'erro');
     submitBtn.disabled = false;
     submitBtn.innerHTML = 'ENTRAR';
   }

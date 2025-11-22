@@ -62,12 +62,17 @@ function openEditCategoryModal(id) {
   const category = categories.find(c => c.id === id);
   if (!category) return;
   
+  if (!category.user_id) {
+    showToast('Esta é uma categoria padrão e não pode ser editada.', 'error');
+    return;
+  }
+
   document.getElementById('categoryModalTitle').textContent = 'Editar Categoria';
   document.getElementById('categoryId').value = category.id;
   document.getElementById('categoryName').value = category.name;
   document.getElementById('categoryIcon').value = category.icon;
   document.getElementById('categoryColor').value = category.color;
-  document.getElementById('categoryType').value = category.type;
+  document.getElementById('categoryType').value = category.category_type;
   document.getElementById('deleteCategoryBtn').classList.remove('hidden');
   
   openModal('categoryModal');
