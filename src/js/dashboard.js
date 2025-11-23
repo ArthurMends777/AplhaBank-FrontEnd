@@ -175,28 +175,35 @@ function renderFlowChart(transactions) {
 
 function renderCategoryChart(transactions, categories) {
   const ctx = document.getElementById('dashboardCategoryChart').getContext('2d');
-  
+
   const categoryData = {};
   const categoryColors = {};
-  
-  transactions.filter(t => t.transaction_type === 'expense').forEach(t => {
-    const categoryName = t.category || 'Outros';
-    categoryData[categoryName] = (categoryData[categoryName] || 0) + toNumber(t.amount);
-    
-    const cat = categories.find(c => c.name === categoryName);
-    if (cat && !categoryColors[categoryName]) {
-      categoryColors[categoryName] = cat.color;
-    }
-  });
-  
+
+  transactions
+    .filter(t => t.transaction_type === 'expense')
+    .forEach(t => {
+      const catId = t.category_id || 'outros';
+
+      const category = categories.find(c => c.id === catId);
+
+      const categoryName = category ? category.name : 'Outros';
+      const categoryColor = category ? category.color : '#636e72';
+
+      categoryData[categoryName] = (categoryData[categoryName] || 0) + toNumber(t.amount);
+
+      if (!categoryColors[categoryName]) {
+        categoryColors[categoryName] = categoryColor;
+      }
+    });
+
   const labels = Object.keys(categoryData);
   const data = Object.values(categoryData);
   const colors = labels.map(label => categoryColors[label] || '#636e72');
-  
+
   if (dashboardCategoryChart) {
     dashboardCategoryChart.destroy();
   }
-  
+
   dashboardCategoryChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
@@ -225,7 +232,7 @@ function renderCategoryChart(transactions, categories) {
             label: function(context) {
               const total = context.dataset.data.reduce((a, b) => a + b, 0);
               const percentage = ((context.parsed / total) * 100).toFixed(1);
-              return context.label + ': ' + formatCurrency(context.parsed) + ' (' + percentage + '%)';
+              return `${context.label}: ${formatCurrency(context.parsed)} (${percentage}%)`;
             }
           }
         }
