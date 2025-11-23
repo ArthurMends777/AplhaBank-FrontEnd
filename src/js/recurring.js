@@ -149,7 +149,7 @@ async function loadCategoriesIntoSelect() {
       const filtered = categories.filter(c => c.category_type === type || c.category_type === 'both');
       
       categorySelect.innerHTML = '<option value="">Selecione uma categoria</option>' +
-        filtered.map(c => `<option value="${c.name}">${c.icon} ${c.name}</option>`).join('');
+        filtered.map(c => `<option value="${c.id}">${c.icon} ${c.name}</option>`).join('');
     };
     
     typeSelect.removeEventListener('change', updateCategories);

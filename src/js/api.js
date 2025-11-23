@@ -329,7 +329,7 @@ const recurringAPI = {
                 description: recurringData.description,
                 amount: parseFloat(recurringData.amount),
                 transaction_type: recurringData.type || recurringData.transaction_type,
-                category_id: recurringData.categoryId || recurringData.category_id || null,
+                category_id: recurringData.category || null,
                 frequency: recurringData.frequency
             })
         });
