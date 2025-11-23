@@ -51,8 +51,8 @@ function createRecurringCard(item) {
   const categoryIcon = category ? category.icon : '💵';
   const categoryColor = category ? category.color : '#636e72';
 
-  const lastGenText = item.lastGenerated
-    ? `Última: ${formatDate(item.lastGenerated)}`
+  const lastGenText = item.last_generated
+    ? `Última: ${formatDate(item.last_generated)}`
     : 'Nunca gerada';
 
   return `
@@ -89,7 +89,7 @@ function createRecurringCard(item) {
           </button>
         </div>
       </div>
-      
+
       <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--background-secondary); border-radius: 8px;">
         <div>
           <p style="font-size: 12px; color: var(--foreground-muted); margin-bottom: 4px;">Valor</p>
@@ -227,10 +227,12 @@ async function generatePending() {
   try {
     const generated = await recurringAPI.generatePending();
     
-    if (generated.length === 0) {
+    const count = generated.count ?? 0;
+
+    if (count === 0) {
       showToast('Nenhuma transação pendente para gerar', 'info');
     } else {
-      showToast(`${generated.length} transação(ões) gerada(s) com sucesso!`, 'success');
+      showToast(`${count} transação(ões) gerada(s) com sucesso!`, 'success');
       loadRecurring();
     }
   } catch (error) {
