@@ -18,21 +18,18 @@ let userData = {};
 // Carrega dados do perfil
 async function loadProfile() {
   try {
-    // Tenta carregar do localStorage, mas prioriza a API para dados atualizados
     const localData = JSON.parse(localStorage.getItem('userData') || '{}');
     
-    // 1. Tenta buscar dados atualizados da API
     try {
       const apiData = await authAPI.getProfile();
       // console.log('Dados do perfil carregados da API:', apiData);
       userData = { ...localData, ...apiData };
-      localStorage.setItem('userData', JSON.stringify(userData)); // Atualiza o localStorage com dados da API
+      localStorage.setItem('userData', JSON.stringify(userData));
     } catch (apiError) {
       console.warn('Falha ao buscar perfil na API, usando dados locais:', apiError);
       userData = localData;
     }
     
-    // Atualiza informações básicas
     // console.log('User Data teste:', userData);
     if (userData.full_name) {
       document.getElementById('profileName').textContent = userData.full_name;

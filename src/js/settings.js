@@ -8,12 +8,33 @@ if (!checkAuth()) {
 }
 
 // Carrega dados do usuário
-function loadUserData() {
-  const userData = JSON.parse(localStorage.getItem('userData') || '{}');
-  console.log('User Data:', userData);
+async function loadUserData() {
+  let localData = JSON.parse(localStorage.getItem('userData') || '{}');
+  let userData = localData;
+
+  try {
+    const apiData = await authAPI.getProfile();
+
+    userData = { ...localData, ...apiData };
+
+    localStorage.setItem('userData', JSON.stringify(userData));
+
+  } catch (error) {
+    console.warn('Falha ao buscar perfil na API, usando dados locais:', error);
+  }
+
+  console.log('User Data final:', userData);
+
   if (userData.full_name) {
     document.getElementById('userName').textContent = userData.full_name;
-    const initials = userData.full_name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+
+    const initials = userData.full_name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .substring(0, 2)
+      .toUpperCase();
+
     document.getElementById('userInitials').textContent = initials;
   }
   
