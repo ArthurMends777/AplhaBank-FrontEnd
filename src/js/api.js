@@ -464,11 +464,11 @@ const statsAPI = {
         
         const totalIncome = monthlyTransactions
             .filter(t => t.transaction_type === 'income')
-            .reduce((sum, t) => sum + t.amount, 0);
+            .reduce((sum, t) => sum + Number(t.amount), 0);
         
         const totalExpense = monthlyTransactions
             .filter(t => t.transaction_type === 'expense')
-            .reduce((sum, t) => sum + t.amount, 0);
+            .reduce((sum, t) => sum + Number(t.amount), 0);
         
         // Dados diários para o gráfico (últimos 7 dias)
         const dailyData = [];

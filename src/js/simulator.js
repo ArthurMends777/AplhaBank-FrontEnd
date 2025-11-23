@@ -32,11 +32,11 @@ async function loadData() {
     // Calcula totais
     currentTotals.income = monthTransactions
       .filter(t => t.transaction_type === 'income')
-      .reduce((sum, t) => sum + t.amount, 0);
+      .reduce((sum, t) => sum + Number(t.amount), 0);
     
     currentTotals.expense = monthTransactions
       .filter(t => t.transaction_type === 'expense')
-      .reduce((sum, t) => sum + t.amount, 0);
+      .reduce((sum, t) => sum + Number(t.amount), 0);
     
     // Agrupa despesas por categoria
     categoryData = {};
@@ -47,10 +47,15 @@ async function loadData() {
         if (!categoryData[cat]) {
           categoryData[cat] = {
             amount: 0,
-            category: categories.find(c => c.name === cat) || { name: cat, icon: '💵', color: '#636e72' }
+            category: categories.find(c => c.name === cat) || { 
+              name: cat, 
+              icon: '💵', 
+              color: '#636e72' 
+            }
           };
         }
-        categoryData[cat].amount += t.amount;
+
+        categoryData[cat].amount += Number(t.amount);
       });
     
     // Inicializa ajustes em 0%

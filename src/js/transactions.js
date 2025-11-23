@@ -83,12 +83,12 @@ function renderTransactions() {
 function updateSummary() {
   const totalIncome = filteredTransactions
     .filter(t => t.transaction_type === 'income')
-    .reduce((sum, t) => sum + t.amount, 0);
+    .reduce((sum, t) => sum + Number(t.amount), 0);
   
   const totalExpense = filteredTransactions
     .filter(t => t.transaction_type === 'expense')
-    .reduce((sum, t) => sum + t.amount, 0);
-  
+    .reduce((sum, t) => sum + Number(t.amount), 0);
+
   document.getElementById('totalIncome').textContent = formatCurrency(totalIncome);
   document.getElementById('totalExpense').textContent = formatCurrency(totalExpense);
   document.getElementById('totalBalance').textContent = formatCurrency(totalIncome - totalExpense);

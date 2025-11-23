@@ -29,11 +29,11 @@ async function loadStats() {
     // Calcula totais
     const totalIncome = periodTransactions
       .filter(t => t.transaction_type === 'income')
-      .reduce((sum, t) => sum + t.amount, 0);
-    
+      .reduce((sum, t) => sum + Number(t.amount), 0);
+
     const totalExpense = periodTransactions
       .filter(t => t.transaction_type === 'expense')
-      .reduce((sum, t) => sum + t.amount, 0);
+      .reduce((sum, t) => sum + Number(t.amount), 0);
     
     // Atualiza resumo
     document.getElementById('totalIncomeStats').textContent = formatCurrency(totalIncome);
