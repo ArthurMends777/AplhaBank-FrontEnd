@@ -45,15 +45,16 @@ function createRecurringCard(item) {
     monthly: 'Mensal',
     yearly: 'Anual'
   };
-  
-  const category = categories.find(c => c.name === item.category);
+
+  const category = categories.find(c => c.id === item.category_id);
+
   const categoryIcon = category ? category.icon : '💵';
   const categoryColor = category ? category.color : '#636e72';
-  
-  const lastGenText = item.lastGenerated 
+
+  const lastGenText = item.lastGenerated
     ? `Última: ${formatDate(item.lastGenerated)}`
     : 'Nunca gerada';
-  
+
   return `
     <div class="card" style="margin-bottom: 16px; ${!item.active ? 'opacity: 0.6;' : ''}">
       <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
@@ -123,15 +124,15 @@ async function openAddRecurringModal() {
 async function openEditRecurringModal(id) {
   const item = recurring.find(r => r.id === id);
   if (!item) return;
-  
+
   await loadCategoriesIntoSelect();
   
   document.getElementById('recurringModalTitle').textContent = 'Editar Recorrência';
   document.getElementById('recurringId').value = item.id;
-  document.getElementById('recurringType').value = item.type;
+  document.getElementById('recurringType').value = item.transaction_type;
   document.getElementById('recurringDescription').value = item.description;
   document.getElementById('recurringAmount').value = item.amount;
-  document.getElementById('recurringCategory').value = item.category || '';
+  document.getElementById('recurringCategory').value = item.category_id || '';
   document.getElementById('recurringFrequency').value = item.frequency;
   document.getElementById('deleteRecurringBtn').classList.remove('hidden');
   
