@@ -53,48 +53,48 @@ async function loadStats() {
 // Renderiza gráfico de fluxo
 function renderFlowChart(transactions) {
   const ctx = document.getElementById('flowChart').getContext('2d');
-  
-  // Agrupa transações por dia
+
   const dailyData = {};
   const now = new Date();
-  
-  // Inicializa todos os dias do período com zero
+
+  // Inicializa período
   for (let i = currentPeriod - 1; i >= 0; i--) {
     const date = new Date(now);
     date.setDate(date.getDate() - i);
-    const dateStr = date.toISOString().split('T')[0];
+    const dateStr = date.toLocaleDateString('en-CA');
     dailyData[dateStr] = { income: 0, expense: 0 };
   }
-  
-  // Preenche com dados reais
+
+  // Preenche dados
   transactions.forEach(t => {
-    const dateStr = new Date(t.date).toISOString().split('T')[0];
+    const d = new Date(t.date);
+    const dateStr = d.toLocaleDateString('en-CA');
+
     if (dailyData[dateStr]) {
       if (t.transaction_type === 'income') {
-        dailyData[dateStr].income += t.amount;
+        dailyData[dateStr].income += Number(t.amount);
       } else {
-        dailyData[dateStr].expense += t.amount;
+        dailyData[dateStr].expense += Number(t.amount);
       }
     }
   });
-  
-  const labels = Object.keys(dailyData).map(date => {
-    const d = new Date(date);
-    return `${d.getDate()}/${d.getMonth() + 1}`;
-  });
-  
+
+  const labels = Object.keys(dailyData)
+    .sort()
+    .map(date => {
+      const d = new Date(date);
+      return `${d.getDate()}/${d.getMonth() + 1}`;
+    });
+
   const incomeData = Object.values(dailyData).map(d => d.income);
   const expenseData = Object.values(dailyData).map(d => d.expense);
-  
-  // Destrói gráfico anterior se existir
-  if (flowChart) {
-    flowChart.destroy();
-  }
-  
+
+  if (flowChart) flowChart.destroy();
+
   flowChart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: labels,
+      labels,
       datasets: [
         {
           label: 'Receitas',
@@ -160,37 +160,42 @@ function renderFlowChart(transactions) {
 // Renderiza gráfico de categorias
 function renderCategoryChart(transactions, categories) {
   const ctx = document.getElementById('categoryChart').getContext('2d');
-  
-  // Agrupa despesas por categoria
+
   const categoryData = {};
   const categoryColors = {};
-  
-  transactions.filter(t => t.transaction_type === 'expense').forEach(t => {
-    const categoryName = t.category || 'Outros';
-    categoryData[categoryName] = (categoryData[categoryName] || 0) + t.amount;
-    
-    // Busca cor da categoria
-    const cat = categories.find(c => c.name === categoryName);
-    if (cat && !categoryColors[categoryName]) {
-      categoryColors[categoryName] = cat.color;
-    }
-  });
-  
+
+  transactions
+    .filter(t => t.transaction_type === 'expense')
+    .forEach(t => {
+      const catId = t.category_id || null;
+      const categoryInfo = categories.find(c => c.id === catId);
+
+      const categoryName = categoryInfo
+        ? categoryInfo.name
+        : 'Outros';
+
+      // Soma valor corretamente
+      categoryData[categoryName] =
+        (categoryData[categoryName] || 0) + Number(t.amount);
+
+      // Pega a cor da categoria
+      if (categoryInfo && !categoryColors[categoryName]) {
+        categoryColors[categoryName] = categoryInfo.color;
+      }
+    });
+
   const labels = Object.keys(categoryData);
   const data = Object.values(categoryData);
-  const colors = labels.map(label => categoryColors[label] || '#636e72');
-  
-  // Destrói gráfico anterior se existir
-  if (categoryChart) {
-    categoryChart.destroy();
-  }
-  
+  const colors = labels.map(label => categoryColors[label] || "#636e72");
+
+  if (categoryChart) categoryChart.destroy();
+
   categoryChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
-      labels: labels,
+      labels,
       datasets: [{
-        data: data,
+        data,
         backgroundColor: colors,
         borderColor: '#0a0e1a',
         borderWidth: 2
@@ -205,9 +210,7 @@ function renderCategoryChart(transactions, categories) {
           labels: {
             color: '#ffffff',
             padding: 15,
-            font: {
-              size: 12
-            }
+            font: { size: 12 }
           }
         },
         tooltip: {
@@ -215,7 +218,7 @@ function renderCategoryChart(transactions, categories) {
             label: function(context) {
               const total = context.dataset.data.reduce((a, b) => a + b, 0);
               const percentage = ((context.parsed / total) * 100).toFixed(1);
-              return context.label + ': ' + formatCurrency(context.parsed) + ' (' + percentage + '%)';
+              return `${context.label}: ${formatCurrency(context.parsed)} (${percentage}%)`;
             }
           }
         }
@@ -227,44 +230,52 @@ function renderCategoryChart(transactions, categories) {
 // Renderiza lista de categorias
 function renderCategoryList(transactions, categories) {
   const container = document.getElementById('categoryList');
-  
+
   // Agrupa por categoria
   const categoryData = {};
   
-  transactions.filter(t => t.transaction_type === 'expense').forEach(t => {
-    const categoryName = t.category || 'Outros';
-    if (!categoryData[categoryName]) {
-      const cat = categories.find(c => c.name === categoryName);
-      categoryData[categoryName] = {
-        amount: 0,
-        count: 0,
-        icon: cat ? cat.icon : '💵',
-        color: cat ? cat.color : '#636e72'
-      };
-    }
-    categoryData[categoryName].amount += t.amount;
-    categoryData[categoryName].count++;
-  });
-  
-  const total = Object.values(categoryData).reduce((sum, cat) => sum + cat.amount, 0);
-  
+  transactions
+    .filter(t => t.transaction_type === 'expense')
+    .forEach(t => {
+      const catId = t.category_id || 'outros';
+      const catInfo = categories.find(c => c.id === catId);
+
+      if (!categoryData[catId]) {
+        categoryData[catId] = {
+          id: catId,
+          name: catInfo ? catInfo.name : 'Outros',
+          amount: 0,
+          count: 0,
+          icon: catInfo ? catInfo.icon : '💵',
+          color: catInfo ? catInfo.color : '#636e72'
+        };
+      }
+
+      categoryData[catId].amount += Number(t.amount);
+      categoryData[catId].count++;
+    });
+
+  const values = Object.values(categoryData);
+
+  const total = values.reduce((sum, cat) => sum + cat.amount, 0);
+
   // Ordena por valor
-  const sorted = Object.entries(categoryData).sort((a, b) => b[1].amount - a[1].amount);
-  
+  const sorted = values.sort((a, b) => b.amount - a.amount);
+
   if (sorted.length === 0) {
     container.innerHTML = '<p style="text-align: center; color: var(--foreground-muted); padding: 20px;">Nenhuma despesa no período</p>';
     return;
   }
-  
-  container.innerHTML = sorted.map(([name, data]) => {
-    const percentage = ((data.amount / total) * 100).toFixed(1);
+
+  container.innerHTML = sorted.map(data => {
+    const percentage = total > 0 ? ((data.amount / total) * 100).toFixed(1) : '0.0';
     return `
       <div style="margin-bottom: 16px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
           <div style="display: flex; align-items: center; gap: 12px;">
             <span style="font-size: 24px;">${data.icon}</span>
             <div>
-              <p style="font-weight: 600;">${name}</p>
+              <p style="font-weight: 600;">${data.name}</p>
               <p style="font-size: 12px; color: var(--foreground-muted);">${data.count} transaç${data.count > 1 ? 'ões' : 'ão'}</p>
             </div>
           </div>
