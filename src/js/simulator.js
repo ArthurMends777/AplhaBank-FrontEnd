@@ -43,14 +43,18 @@ async function loadData() {
     monthTransactions
       .filter(t => t.transaction_type === 'expense')
       .forEach(t => {
-        const cat = t.category || 'Outros';
+        const cat = t.category_id || 'Outros';
+
+        const categoryInfo = categories.find(c => c.id === cat);
+
         if (!categoryData[cat]) {
           categoryData[cat] = {
             amount: 0,
-            category: categories.find(c => c.name === cat) || { 
-              name: cat, 
-              icon: '💵', 
-              color: '#636e72' 
+            category: categoryInfo || { 
+              id: cat,
+              name: 'Outros',
+              icon: '💵',
+              color: '#636e72'
             }
           };
         }
