@@ -37,8 +37,8 @@ function renderGoals() {
 
 // Cria card de meta
 function createGoalCard(goal) {
-  const currentAmount = toNumber(goal.currentAmount);
-  const targetAmount = toNumber(goal.targetAmount);
+  const currentAmount = toNumber(goal.current_amount);
+  const targetAmount = toNumber(goal.target_amount);
   
   const progress = targetAmount > 0 ? (currentAmount / targetAmount) * 100 : 0;
   const remaining = targetAmount - currentAmount;
@@ -146,7 +146,7 @@ function openEditGoalModal(id) {
   document.getElementById('goalModalTitle').textContent = 'Editar Meta';
   document.getElementById('goalId').value = goal.id;
   document.getElementById('goalName').value = goal.name;
-  document.getElementById('goalTarget').value = goal.targetAmount.toString();
+  document.getElementById('goalTarget').value = goal.target_amount ? goal.target_amount.toString() : '';
   document.getElementById('goalDeadline').value = goal.deadline.split('T')[0];
   document.getElementById('goalIcon').value = goal.icon || '🎯';
   document.getElementById('deleteGoalBtn').classList.remove('hidden');
